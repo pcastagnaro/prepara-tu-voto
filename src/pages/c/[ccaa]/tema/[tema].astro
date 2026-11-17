@@ -1,0 +1,28 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import VerdictList from '../../../../components/VerdictList.astro';
+import { getCollection } from 'astro:content';
+import { activeRegions } from '../../../../lib/regions';
+import { claimsFor } from '../../../../lib/claims';
+import { url } from '../../../../lib/url';
+export async function getStaticPaths() {
+  const topics = (await getCollection('topics')).filter((t) => t.data.mvp);
+  return activeRegions().flatMap((r) => topics.map((t) => ({ params: { ccaa: r.id, tema: t.id }, props: { region: r, topic: t } })));
+}
+const { region, topic } = Astro.props;
+const parties = (await getCollection('parties')).filter((p) => p.data.ambito === 'estatal' || p.data.comunidades.includes(region.id));
+const claims = await claimsFor({ tema: topic.id });
+---
+<Base title={`${topic.data.nombre} · ${region.nombre}`}>
+  <p class="muted"><a href={url(`c/${region.id}/`)}>← {region.nombre}</a></p>
+  <h1>{topic.data.nombre}</h1>
+  <p class="lead">{topic.data.resumen}</p>
+  {claims.length === 0
+    ? <div class="notice">Todavía no hay afirmaciones publicadas en este tema. Solo publicamos lo que supera la verificación (fuente primaria archivada, contraste y doble revisión).</div>
+    : parties.length === 0
+      ? <VerdictList claims={claims} />
+      : <div class="compare">{parties.map((p) => (
+          <section class="card"><h2 style="margin-top:0">{p.data.siglas}</h2>
+            <VerdictList claims={claims.filter((c) => c.partidoId === p.id)} /></section>
+        ))}</div>}
+</Base>

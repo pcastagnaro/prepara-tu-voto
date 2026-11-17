@@ -1,0 +1,31 @@
+---
+import VerdictChip from './VerdictChip.astro';
+import type { VerdictId } from '../lib/verdicts';
+export interface SourceRef { id: string; titular: string; medio: string; url: string; archivo_url?: string; minuto?: string; }
+interface Props {
+  texto: string; autor?: string; partido: string; fecha: Date; veredicto?: VerdictId;
+  explicacion?: string; fuentes: SourceRef[]; contraste?: SourceRef[]; fechaRevision?: Date;
+}
+const { texto, autor, partido, fecha, veredicto, explicacion, fuentes, contraste = [], fechaRevision } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<article class="card claim">
+  <div class="meta">{autor ? `${autor} · ` : ''}{partido} · {fmt(fecha)}</div>
+  <blockquote>{texto}</blockquote>
+  {veredicto ? <div><VerdictChip id={veredicto} /></div> : <div class="chip v-no-veraz">En revisión (sin veredicto)</div>}
+  {explicacion && <p>{explicacion}</p>}
+  <details>
+    <summary>Fuentes y cómo lo verificamos</summary>
+    <p class="muted">Afirmación:</p>
+    <ul>{fuentes.map((s) => (
+      <li><a href={s.url} rel="noopener">{s.titular}</a> — {s.medio}{s.minuto ? ` (min. ${s.minuto})` : ''}
+        {s.archivo_url && <> · <a href={s.archivo_url} rel="noopener">copia archivada</a></>}</li>
+    ))}</ul>
+    {contraste.length > 0 && <><p class="muted">Contraste:</p>
+    <ul>{contraste.map((s) => (
+      <li><a href={s.url} rel="noopener">{s.titular}</a> — {s.medio}
+        {s.archivo_url && <> · <a href={s.archivo_url} rel="noopener">copia archivada</a></>}</li>
+    ))}</ul></>}
+    {fechaRevision && <p class="muted">Última revisión: {fmt(fechaRevision)}</p>}
+  </details>
+</article>

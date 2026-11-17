@@ -1,0 +1,20 @@
+---
+// Galería de componentes con datos FICTICIOS. Solo existe en desarrollo (no se genera en producción).
+import Base from '../../layouts/Base.astro';
+import ClaimCard from '../../components/ClaimCard.astro';
+import Timeline from '../../components/Timeline.astro';
+import VerdictList from '../../components/VerdictList.astro';
+import { VERDICT_IDS } from '../../lib/verdicts';
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { page: 'componentes' } }] : [];
+}
+const s = { id: 's', titular: 'Fuente de ejemplo', medio: 'Medio ficticio', url: 'https://example.com', archivo_url: 'https://web.archive.org/' };
+const mk = (v: any, peso = 'normal') => ({ texto: 'Afirmación ficticia de ejemplo para probar el componente.', autor: 'Persona Ejemplo', partido: 'PE', fecha: new Date(), veredicto: v, peso, explicacion: 'Explicación neutral de ejemplo.', fuentes: [s], contraste: [s], fechaRevision: new Date() });
+const claims = VERDICT_IDS.map((v) => mk(v, v === 'falso' ? 'estructural' : 'normal'));
+---
+<Base title="Galería (dev)">
+  <h1>Galería de componentes (datos ficticios)</h1>
+  <VerdictList claims={claims} />
+  <h2>Timeline</h2>
+  <Timeline items={[{ fecha: new Date('2020-01-01'), titulo: 'Evento ejemplo', descripcion: 'Descripción ficticia.', tipo: 'cambio-de-postura' }]} />
+</Base>

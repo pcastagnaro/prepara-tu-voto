@@ -1,0 +1,7 @@
+---
+import { VERDICTS, type VerdictId } from '../lib/verdicts';
+const { id } = Astro.props as { id: VerdictId };
+const v = VERDICTS[id];
+const cls = v.group === 'visible' ? `v-${v.id}` : 'v-no-veraz';
+---
+<span class={`chip ${cls}`} title={v.definition}><span aria-hidden="true">{v.icon}</span>{v.label}</span>

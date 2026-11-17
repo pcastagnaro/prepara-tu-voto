@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { activeRegions } from '../lib/regions';
+import { url } from '../lib/url';
+---
+<Base title="Prepara Tu Voto">
+  <h1>Decide tu voto en 15 minutos.</h1>
+  <p class="lead">Qué dice y qué hace realmente cada partido ante las elecciones generales del 29 de noviembre de 2026. Con fuentes, sin propaganda y sin sensacionalismo.</p>
+  <h2>¿Dónde votas?</h2>
+  <div class="grid">
+    {activeRegions().map((r) => (
+      <a class="card" href={url(`c/${r.id}/`)}><strong>{r.nombre}</strong><p class="muted">Temas, partidos y verificaciones</p></a>
+    ))}
+  </div>
+  <h2>Cómo leer las verificaciones</h2>
+  <p>Cada afirmación se contrasta con fuentes y recibe un veredicto. Los más habituales —<em>Verdadero</em>, <em>Verdadero, pero…</em> y <em>Discutible</em>— se muestran de forma destacada; el resto se agrupa como «Información no veraz». <a href={url('veredictos/')}>Ver definiciones</a> · <a href={url('metodologia/')}>Cómo trabajamos</a>.</p>
+  <div class="notice"><strong>Compromiso de objetividad.</strong> Intentamos ser lo más objetivos posible: mismo criterio para todos, fuentes citadas y correcciones públicas.</div>
+</Base>

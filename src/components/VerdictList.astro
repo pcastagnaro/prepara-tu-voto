@@ -1,0 +1,22 @@
+---
+/** Muestra claims con la regla de visibilidad: veraz/matizado/discutible destacados; resto colapsado. */
+import ClaimCard from './ClaimCard.astro';
+import { VERDICTS } from '../lib/verdicts';
+const { claims } = Astro.props as { claims: any[] };
+const visibles = claims.filter((c) => !c.veredicto || VERDICTS[c.veredicto as keyof typeof VERDICTS].group === 'visible');
+const noVeraces = claims.filter((c) => c.veredicto && VERDICTS[c.veredicto as keyof typeof VERDICTS].group === 'no-veraz');
+const estructural = noVeraces.filter((c) => c.peso === 'estructural');
+---
+{estructural.length > 0 && (
+  <div class="notice warn" role="note">
+    <strong>Postura declarada vs. evidencia.</strong> En este tema hay {estructural.length} afirmación(es) estructural(es)
+    que la información disponible no respalda. Consulta «Información no veraz» más abajo.
+  </div>
+)}
+<div class="grid" style="margin-top:14px">{visibles.map((c) => <ClaimCard {...c} />)}</div>
+{noVeraces.length > 0 && (
+  <details class="nonveraz">
+    <summary>Información no veraz ({noVeraces.length})</summary>
+    <div class="grid" style="margin-top:14px">{noVeraces.map((c) => <ClaimCard {...c} />)}</div>
+  </details>
+)}

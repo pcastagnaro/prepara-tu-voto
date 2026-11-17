@@ -1,0 +1,24 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { REGIONS, activeRegions } from '../../../lib/regions';
+import { url } from '../../../lib/url';
+export function getStaticPaths() {
+  return activeRegions().map((r) => ({ params: { ccaa: r.id }, props: { region: r } }));
+}
+const { region } = Astro.props;
+const topics = (await getCollection('topics')).sort((a, b) => a.data.orden - b.data.orden);
+const circ = (await getCollection('constituencies')).filter((c) => c.data.comunidad === region.id);
+---
+<Base title={region.nombre}>
+  <h1>{region.nombre}</h1>
+  <p class="lead">Temas troncales y circunscripciones de {region.nombre} para las elecciones generales.</p>
+  <h2>Temas</h2>
+  <div class="grid">
+    {topics.filter((t) => t.data.mvp).map((t) => (
+      <a class="card" href={url(`c/${region.id}/tema/${t.id}/`)}><strong>{t.data.nombre}</strong><p class="muted">{t.data.resumen}</p></a>
+    ))}
+  </div>
+  <h2>Circunscripciones</h2>
+  <p>{circ.map((c) => c.data.nombre).join(' · ')}</p>
+</Base>

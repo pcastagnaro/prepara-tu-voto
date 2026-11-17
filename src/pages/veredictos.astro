@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import VerdictChip from '../components/VerdictChip.astro';
+import { verdictsByGroup } from '../lib/verdicts';
+---
+<Base title="Veredictos">
+  <h1>Veredictos</h1>
+  <p class="lead">Cómo clasificamos cada afirmación.</p>
+  <h2>Destacados</h2>
+  <div class="grid">{verdictsByGroup('visible').map((v) => <div class="card"><VerdictChip id={v.id} /><p>{v.definition}</p></div>)}</div>
+  <h2>Información no veraz</h2>
+  <p class="muted">Agrupada y menos prominente, pero siempre señalada cuando afecta a temas complejos o estructurales.</p>
+  <div class="grid">{verdictsByGroup('no-veraz').map((v) => <div class="card"><VerdictChip id={v.id} /><p>{v.definition}</p></div>)}</div>
+</Base>

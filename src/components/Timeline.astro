@@ -1,0 +1,18 @@
+---
+interface Item { fecha: Date; titulo: string; descripcion: string; tipo: string; }
+const { items } = Astro.props as { items: Item[] };
+const sorted = [...items].sort((a, b) => +a.fecha - +b.fecha);
+const label: Record<string, string> = {
+  contradiccion: 'Contradicción', 'cambio-de-partido': 'Cambio de partido', 'cambio-de-postura': 'Cambio de postura',
+  cumplimiento: 'Cumplimiento', incumplimiento: 'Incumplimiento',
+};
+---
+<ol class="timeline">
+  {sorted.map((i) => (
+    <li>
+      <div class="muted">{i.fecha.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })} · {label[i.tipo] ?? i.tipo}</div>
+      <strong>{i.titulo}</strong>
+      <p>{i.descripcion}</p>
+    </li>
+  ))}
+</ol>
