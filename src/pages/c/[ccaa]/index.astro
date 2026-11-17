@@ -9,6 +9,11 @@ export function getStaticPaths() {
 const { region } = Astro.props;
 const topics = (await getCollection('topics')).sort((a, b) => a.data.orden - b.data.orden);
 const circ = (await getCollection('constituencies')).filter((c) => c.data.comunidad === region.id);
+const parties = await getCollection('parties');
+const people = await getCollection('people');
+const sources = await getCollection('sources');
+const sigla = (id: string) => parties.find((p) => p.id === id)?.data.siglas ?? id;
+const nombre = (id: string) => people.find((p) => p.id === id)?.data.nombre ?? id;
 ---
 <Base title={region.nombre}>
   <h1>{region.nombre}</h1>
@@ -20,5 +25,13 @@ const circ = (await getCollection('constituencies')).filter((c) => c.data.comuni
     ))}
   </div>
   <h2>Circunscripciones</h2>
-  <p>{circ.map((c) => c.data.nombre).join(' · ')}</p>
+  <p class="muted">Cabezas de lista al Congreso según las candidaturas proclamadas en el BOE (<a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-23103" rel="noopener">BOE-A-2026-23103</a>, con <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-23383" rel="noopener">corrección</a>). Solo partidos con representación en el Congreso saliente; hay más candidaturas proclamadas.</p>
+  <div class="grid">
+    {circ.map((c) => (
+      <section class="card">
+        <h3 style="margin-top:0">{c.data.nombre}</h3>
+        <ul>{c.data.cabezas_de_lista.map((h) => <li><strong>{sigla(h.partido)}</strong>: {nombre(h.persona)}</li>)}</ul>
+      </section>
+    ))}
+  </div>
 </Base>

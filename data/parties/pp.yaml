@@ -1,0 +1,9 @@
+nombre: "Partido Popular"
+siglas: "PP"
+ambito: estatal
+comunidades: []
+denominaciones:
+  - comunidad: madrid
+    nombre: "PARTIDO POPULAR (PP)"
+  - comunidad: cataluna
+    nombre: "PARTIT POPULAR / PARTIDO POPULAR (PP)"

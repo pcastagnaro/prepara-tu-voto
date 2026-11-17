@@ -1,0 +1,9 @@
+nombre: "Vox"
+siglas: "VOX"
+ambito: estatal
+comunidades: []
+denominaciones:
+  - comunidad: madrid
+    nombre: "VOX (VOX)"
+  - comunidad: cataluna
+    nombre: "VOX (VOX)"

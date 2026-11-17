@@ -1,2 +1,21 @@
 nombre: Tarragona
 comunidad: cataluna
+cabezas_de_lista:
+  - partido: psoe
+    persona: ione-montalvo-aguirrezabala
+    fuente: boe-candidaturas-proclamadas
+  - partido: erc
+    persona: norma-pujol-farre
+    fuente: boe-candidaturas-proclamadas
+  - partido: junts
+    persona: josep-maria-cruset-i-domenech
+    fuente: boe-candidaturas-proclamadas
+  - partido: comuns-front-ampli
+    persona: ester-roca-domedel
+    fuente: boe-correccion-candidaturas-proclamadas
+  - partido: vox
+    persona: jordi-albert-de-la-fuente-i-miro
+    fuente: boe-candidaturas-proclamadas
+  - partido: pp
+    persona: monica-landete-oliva
+    fuente: boe-candidaturas-proclamadas

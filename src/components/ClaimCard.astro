@@ -5,8 +5,10 @@ export interface SourceRef { id: string; titular: string; medio: string; url: st
 interface Props {
   texto: string; autor?: string; partido: string; fecha: Date; veredicto?: VerdictId;
   explicacion?: string; fuentes: SourceRef[]; contraste?: SourceRef[]; fechaRevision?: Date;
+  revision?: { tipo: 'ia' | 'humano'; nombre: string; fecha: Date }[];
 }
-const { texto, autor, partido, fecha, veredicto, explicacion, fuentes, contraste = [], fechaRevision } = Astro.props;
+const { texto, autor, partido, fecha, veredicto, explicacion, fuentes, contraste = [], fechaRevision, revision = [] } = Astro.props;
+const humana = revision.some((r) => r.tipo === 'humano');
 const fmt = (d: Date) => d.toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 <article class="card claim">
@@ -27,5 +29,6 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { year: 'numeric', month:
         {s.archivo_url && <> · <a href={s.archivo_url} rel="noopener">copia archivada</a></>}</li>
     ))}</ul></>}
     {fechaRevision && <p class="muted">Última revisión: {fmt(fechaRevision)}</p>}
+    {revision.length > 0 && <p class="muted">{humana ? 'Revisión humana e IA.' : 'Revisado únicamente por IA, sin revisión humana: puede contener errores.'}</p>}
   </details>
 </article>

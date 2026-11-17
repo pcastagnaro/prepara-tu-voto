@@ -11,7 +11,9 @@ export const party = z.object({
   siglas: z.string(),
   ambito: z.enum(['estatal', 'autonomico']),
   comunidades: z.array(id).default([]),
-  web_oficial: z.string().url(),
+  web_oficial: z.string().url().optional(),
+  denominaciones: z.array(z.object({ comunidad: id, nombre: z.string() })).default([]),
+  notas: z.string().optional(),
   programa_url: z.string().url().optional(),
   ideologia_declarada: z.string().optional(),
 });
@@ -39,6 +41,7 @@ export const topic = z.object({
 export const constituency = z.object({
   nombre: z.string(),
   comunidad: id,
+  cabezas_de_lista: z.array(z.object({ partido: id, persona: id, fuente: id })).default([]),
   escanos_congreso: z.number().int().optional(),
   fuente: z.string().url().optional(),
 });
@@ -76,7 +79,8 @@ export const claim = z
     veredicto: z.enum(VERDICT_IDS).optional(),
     explicacion: z.string().optional(),
     contraste: z.array(id).default([]),
-    revisado_por: z.array(z.string()).default([]),
+    // Cada revisión indica si fue humana o por IA; la UI lo muestra siempre.
+    revisado_por: z.array(z.object({ tipo: z.enum(['ia', 'humano']), nombre: z.string(), fecha })).default([]),
     fecha_revision: fecha.optional(),
   })
   .superRefine((c, ctx) => {
@@ -86,7 +90,7 @@ export const claim = z
     need(!!c.veredicto, 'veredicto', 'un claim publicado necesita veredicto');
     need(!!c.explicacion, 'explicacion', 'un claim publicado necesita explicación');
     need(c.contraste.length >= 1, 'contraste', 'se exige contraste con al menos 1 dato/fuente');
-    need(new Set(c.revisado_por).size >= 2, 'revisado_por', 'se exige doble revisión (2 personas distintas)');
+    need(new Set(c.revisado_por.map((r) => r.nombre)).size >= 2, 'revisado_por', 'se exige doble revisión independiente (2 revisores distintos, IA o humanos)');
     need(!!c.fecha_revision, 'fecha_revision', 'falta fecha de revisión');
     if (c.veredicto && isNonTruthful(c.veredicto)) {
       need(new Set([...c.fuentes, ...c.contraste]).size >= 2, 'contraste',

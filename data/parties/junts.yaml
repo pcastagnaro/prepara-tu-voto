@@ -1,0 +1,7 @@
+nombre: "Junts per Catalunya"
+siglas: "JxCat"
+ambito: autonomico
+comunidades: [cataluna]
+denominaciones:
+  - comunidad: cataluna
+    nombre: "JUNTS PER CATALUNYA (JxCat)"

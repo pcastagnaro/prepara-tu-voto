@@ -1,2 +1,21 @@
 nombre: Barcelona
 comunidad: cataluna
+cabezas_de_lista:
+  - partido: psoe
+    persona: jordi-hereu-boher
+    fuente: boe-candidaturas-proclamadas
+  - partido: junts
+    persona: miriam-nogueras-i-camero
+    fuente: boe-candidaturas-proclamadas
+  - partido: erc
+    persona: gabriel-rufian-romero
+    fuente: boe-candidaturas-proclamadas
+  - partido: vox
+    persona: juan-jose-aizcorbe-torra
+    fuente: boe-candidaturas-proclamadas
+  - partido: comuns-front-ampli
+    persona: ada-colau-ballano
+    fuente: boe-candidaturas-proclamadas
+  - partido: pp
+    persona: xavier-garcia-albiol
+    fuente: boe-candidaturas-proclamadas

@@ -52,6 +52,11 @@ for (const [id, c] of data.claims) {
     }
   }
 }
+for (const [id, k] of data.constituencies) k.cabezas_de_lista.forEach((h: Rec) => {
+  ref(`constituencies/${id}.partido`, 'parties', h.partido);
+  ref(`constituencies/${id}.persona`, 'people', h.persona);
+  ref(`constituencies/${id}.fuente`, 'sources', h.fuente);
+});
 for (const [id, p] of data.people) p.trayectoria.forEach((t: Rec) => {
   ref(`people/${id}.trayectoria.partido`, 'parties', t.partido);
   t.fuentes.forEach((s: string) => ref(`people/${id}.trayectoria.fuentes`, 'sources', s));

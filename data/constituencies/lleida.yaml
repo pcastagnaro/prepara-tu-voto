@@ -1,2 +1,21 @@
 nombre: Lleida
 comunidad: cataluna
+cabezas_de_lista:
+  - partido: psoe
+    persona: cristina-moron-molina
+    fuente: boe-candidaturas-proclamadas
+  - partido: junts
+    persona: isidre-gavin-i-valls
+    fuente: boe-candidaturas-proclamadas
+  - partido: erc
+    persona: ines-granollers-i-cunillera
+    fuente: boe-candidaturas-proclamadas
+  - partido: comuns-front-ampli
+    persona: montserrat-cortasa-gras
+    fuente: boe-candidaturas-proclamadas
+  - partido: vox
+    persona: rafael-villafranca-merce
+    fuente: boe-candidaturas-proclamadas
+  - partido: pp
+    persona: roger-melero-serra
+    fuente: boe-candidaturas-proclamadas

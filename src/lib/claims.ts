@@ -21,5 +21,6 @@ export async function claimsFor(opts: { tema: string; partido?: string }) {
       veredicto: c.data.estado === 'publicado' ? (c.data.veredicto as VerdictId | undefined) : undefined,
       explicacion: c.data.estado === 'publicado' ? c.data.explicacion : undefined,
       fuentes: src(c.data.fuentes), contraste: src(c.data.contraste), fechaRevision: c.data.fecha_revision,
+      revision: c.data.revisado_por,
     }));
 }

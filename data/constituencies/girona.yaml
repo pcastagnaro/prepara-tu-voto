@@ -1,2 +1,21 @@
 nombre: Girona
 comunidad: cataluna
+cabezas_de_lista:
+  - partido: psoe
+    persona: marc-lamua-estanol
+    fuente: boe-candidaturas-proclamadas
+  - partido: junts
+    persona: marta-madrenas-i-mir
+    fuente: boe-candidaturas-proclamadas
+  - partido: erc
+    persona: teresa-jorda-roura
+    fuente: boe-candidaturas-proclamadas
+  - partido: comuns-front-ampli
+    persona: julia-boada-danes
+    fuente: boe-candidaturas-proclamadas
+  - partido: vox
+    persona: ignasi-mulleras-vinzia
+    fuente: boe-candidaturas-proclamadas
+  - partido: pp
+    persona: diana-moya-redondo
+    fuente: boe-candidaturas-proclamadas

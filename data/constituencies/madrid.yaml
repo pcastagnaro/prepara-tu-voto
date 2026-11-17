@@ -1,2 +1,18 @@
 nombre: Madrid
 comunidad: madrid
+cabezas_de_lista:
+  - partido: psoe
+    persona: pedro-sanchez-perez-castejon
+    fuente: boe-candidaturas-proclamadas
+  - partido: vox
+    persona: santiago-abascal-conde
+    fuente: boe-candidaturas-proclamadas
+  - partido: pp
+    persona: alberto-nunez-feijoo
+    fuente: boe-candidaturas-proclamadas
+  - partido: frente-amplio
+    persona: emilio-delgado-orgaz
+    fuente: boe-candidaturas-proclamadas
+  - partido: podemos
+    persona: irene-montero-gil
+    fuente: boe-candidaturas-proclamadas
